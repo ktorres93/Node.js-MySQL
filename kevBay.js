@@ -9,15 +9,35 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("Connected to kevBay!");
-    connection.query('SELECT * FROM `products`', function (error, results, fields) {
-        // error will be an Error if one occurred during the query
-        // results will contain the results of the query
+    connection.query('SELECT item_id,product_name,price,stock_quanity FROM `products`', function (error, results, fields) {
+
         console.log(results);
-        // fields will contain information about the returned results fields (if any)
+
     });
+});
 
     connection.end();
-});
+    inquirer.prompt([{
+
+        type: "input",
+        name:"whatItem",
+        message:"Enter the id of the item that you would like to buy."
+    },
+        {   type: "input",
+            name:"howMany",
+            message: "How many would you like to buy?"
+
+        }]).then(function (answers) {
+        if( inquirer.howMany > results.stock_quanity) {
+            Console.log("We don't have that many!");
+        }
+            else {
+                console.log("Your order is processing.");
+            }
+
+        });
+
+
 
 // CODE USED TO CREATE TABLE
 // // CREATE TABLE products(
